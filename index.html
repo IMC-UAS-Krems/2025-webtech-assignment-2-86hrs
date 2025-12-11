@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Refurbished Macbooks for a cause</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand mt-3 h1" href="#">Refurbished Macbooks</a>
+      <div id="show-cart-div">
+        <button type="button" class="btn btn-primary show-cart-btn">
+          Your Cart <span class="badge mx-1 py-1 text-bg-danger">0</span>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Your cart is empty!</strong> You should check in on some of those fields below.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <header class="py-3 bg-white">
+    <div class="container text-center border-bottom border-3">
+      <h3>Buy Refurbished Macbooks and Support a Charity</h3>
+      <p>
+        High-quality refurbished Macbooks.
+        We don't sell Intel Macbooks, they are e-waste.
+      </p>
+    </div>
+  </header>
+
+  <section id="products-section" class="container my-5">
+    <h3
+      class="mb-4 p-2 w-25 position-relative start-50 end-50 translate-middle text-center border rounded bg-dark text-light">
+      Available
+      Macbooks
+    </h3>
+    <div class="row" id="products-row">
+
+    </div>
+  </section>
+
+  <section id="cart-section"
+    class="container position-fixed start-50 top-50 translate-middle p-5 w-50 bg-dark rounded d-none">
+    <h2 class="text-light">Your Cart</h2>
+    <div class="table-responsive">
+      <table class="table table-dark table-hover align-middle">
+        <thead>
+          <tr>
+            <th>MacBook</th>
+            <th class="text-end">Price</th>
+            <th class="text-center">Qty</th>
+            <th class="text-end">Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="cart-items">
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-danger" onclick="closeCart();">Close Cart</button>
+        <div class="mt-1 text-light fs-4">
+          <span class="fw-semibold">Total:</span>
+          <span id="cart-total">€0.00</span>
+        </div>
+        <button class="btn btn-success" onclick="checkout();">Checkout</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="checkout-section" class="container my-5 d-none">
+  </section>
+
+  <section id="confirmation-section" class="container my-5 d-none">
+    <div class="alert alert-success">
+      Thank you! Your refurbished Macbook purchase helps support youth digital education.
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="js/mine.js"></script>
+</body>
+
+</html>
