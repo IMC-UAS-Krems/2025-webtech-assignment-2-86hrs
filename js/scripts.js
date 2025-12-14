@@ -2,71 +2,71 @@ const products = [
   {
     id : 1,
     name : "MacBook Air 13 (2022)",
-    price : 399,
+    price : 699,
     specs : "16 GB RAM • 512GB SSD",
     image : "img/1.jpg"
   },
   {
     id : 2,
     name : "MacBook Pro 14 (2021)",
-    price : 649,
+    price : 1199,
     specs : "16 GB RAM • 512 GB SSD",
     image : "img/2.jpg"
   },
   {
     id : 3,
     name : "MacBook Pro 14 (2024)",
-    price : 899,
+    price : 1899,
     specs : "32 GB RAM • 512 GB SSD",
     image : "img/3.jpg"
   },
   {
     id : 4,
     name : "MacBook Air 13 (2023)",
-    price : 899,
-    specs : "16 GB RAM • 1 TB GB SSD",
+    price : 849,
+    specs : "16 GB RAM • 1 TB SSD",
     image : "img/4.jpg"
   },
   {
     id : 5,
     name : "MacBook Pro 16 (2021)",
-    price : 1099,
+    price : 1599,
     specs : "16 GB RAM • 512 GB SSD",
     image : "img/5.jpg"
   },
   {
     id : 6,
     name : "MacBook Pro 14 (2021)",
-    price : 1599,
+    price : 1699,
     specs : "16 GB RAM • 512 GB SSD",
     image : "img/6.jpg"
   },
   {
     id : 7,
     name : "MacBook Pro 16 (2023)",
-    price : 1399,
+    price : 2299,
     specs : "16 GB RAM • 1 TB SSD",
     image : "img/7.jpg"
   },
   {
     id : 8,
     name : "MacBook Air 13 (2024)",
-    price : 549,
+    price : 999,
     specs : "16 GB RAM • 512 GB SSD",
     image : "img/8.jpg"
   },
   {
     id : 9,
     name : "MacBook Pro 13 (2022)",
-    price : 399,
+    price : 899,
     specs : "18 GB RAM • 512 GB SSD",
     image : "img/9.jpg"
   },
   {
     id : 10,
     name : "MacBook Pro 16 (2023)",
-    price : 599,
-    specs : "64 GB RAM • 2 TB GB SSD",
+    price : 2899,
+    specs : "64 GB RAM • 2 TB SSD",
     image : "img/10.jpg"
   }
 ];
