@@ -4,74 +4,79 @@ const products = [
     name : "MacBook Air 13 (2022)",
     price : 399,
     specs : "16 GB RAM • 512GB SSD",
-    image : "img/p.jpg"
+    image : "img/1.jpg"
   },
   {
     id : 2,
     name : "MacBook Pro 14 (2021)",
     price : 649,
     specs : "16 GB RAM • 512 GB SSD",
-    image : "img/p.jpg"
+    image : "img/2.jpg"
   },
   {
     id : 3,
     name : "MacBook Pro 14 (2024)",
     price : 899,
     specs : "32 GB RAM • 512 GB SSD",
-    image : "img/p.jpg"
+    image : "img/3.jpg"
   },
   {
     id : 4,
     name : "MacBook Air 13 (2023)",
     price : 899,
     specs : "16 GB RAM • 1 TB GB SSD",
-    image : "img/p.jpg"
+    image : "img/4.jpg"
   },
   {
     id : 5,
     name : "MacBook Pro 16 (2021)",
     price : 1099,
     specs : "16 GB RAM • 512 GB SSD",
-    image : "img/p.jpg"
+    image : "img/5.jpg"
   },
   {
     id : 6,
     name : "MacBook Pro 14 (2021)",
     price : 1599,
     specs : "16 GB RAM • 512 GB SSD",
-    image : "img/p.jpg"
+    image : "img/6.jpg"
   },
   {
     id : 7,
     name : "MacBook Pro 16 (2023)",
     price : 1399,
     specs : "16 GB RAM • 1 TB SSD",
-    image : "img/p.jpg"
+    image : "img/7.jpg"
   },
   {
     id : 8,
     name : "MacBook Air 13 (2024)",
     price : 549,
     specs : "16 GB RAM • 512 GB SSD",
-    image : "img/p.jpg"
+    image : "img/8.jpg"
   },
   {
     id : 9,
     name : "MacBook Pro 13 (2022)",
     price : 399,
     specs : "18 GB RAM • 512 GB SSD",
-    image : "img/p.jpg"
+    image : "img/9.jpg"
   },
   {
     id : 10,
     name : "MacBook Pro 16 (2023)",
     price : 599,
     specs : "64 GB RAM • 2 TB GB SSD",
-    image : "img/p.jpg"
+    image : "img/10.jpg"
   }
 ];
 
 let cart = [];
+let cartTotal = 0;
+let cartQuantity = 0;
+let discount = 0;
+let toBePaid = 0;
+
 
 function addToCart(id) {
   for (const product of cart) {
@@ -97,7 +102,7 @@ function removeFromCart(id) {
     if (product.id === id) {
       product.quantity--;
       if (product.quantity <= 0) {
-        const index = cart.indexOf(p => p.id === id);
+        const index = cart.findIndex(p => p.id === id);
         cart.splice(index, 1);
       }
       updateCart();
@@ -106,27 +111,48 @@ function removeFromCart(id) {
   }
 }
 
+function resetCart() {
+  cart = [];
+  const cartSection = document.getElementById("cart-section");
+  cartSection.classList.add("d-none");
+  const checkoutSection = document.getElementById("checkout-section");
+  checkoutSection.classList.add("d-none");
+  updateCart();
+}
+
+function resetSite() {
+  cart = [];
+  cartTotal = 0;
+  cartQuantity = 0;
+  discount = 0;
+  toBePaid = 0;
+
+  const confirmationSection = document.getElementById("confirmation-section");
+  confirmationSection.classList.add("d-none");
+  resetCart();
+}
+
 function updateCart() {
   const showButtonDiv = document.getElementById("show-cart-div");
   const showCartBtn = showButtonDiv.querySelector(".show-cart-btn");
   const badge = showCartBtn.querySelector(".badge");
   const cartSection = document.getElementById("cart-section");
-  const cartTotal = document.getElementById("cart-total");
-  let totalQuantity = 0;
-  let totalCartValue = 0;
+  const cartTotalSection = document.getElementById("cart-total");
+  cartTotal = 0;
+  cartQuantity = 0;
 
   if (cart.length <= 0) {
     cartSection.classList.add("d-none");
     badge.textContent = "0";
-    totalCartValue = 0;
+    cartTotal = 0;
   }
 
   for (const product of cart) {
-    totalQuantity += Number(product.quantity);
-    totalCartValue += product.price * product.quantity;
+    cartQuantity += Number(product.quantity);
+    cartTotal += product.price * product.quantity;
   }
-  cartTotal.textContent = `€${totalCartValue}`;
-  badge.textContent = totalQuantity;
+  cartTotalSection.textContent = `€${cartTotal}`;
+  badge.textContent = cartQuantity;
 
   const tbody = document.getElementById("cart-items");
   tbody.innerHTML = "";
@@ -163,7 +189,7 @@ function renderProducts() {
     row.innerHTML += `
     <div class ="col-md-4 mb-4 my-auto">
         <div class="card">
-        <img src="img/p.jpg" class="card-img-top">
+        <img src="${product.image}" class="card-img-top">
         <div class = "card-body d-flex flex-column">
             <h5 class="card-title">${product.name}</h5>
             <p class="card-text">${product.specs}</p>
@@ -182,15 +208,82 @@ document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
   btn.addEventListener(
       "click", () => { addToCart(Number(btn.dataset.productId)); });
 });
+document.querySelectorAll(".checkout-btn").forEach(btn => {
+  btn.addEventListener(
+      "click", () => {
+      closeCart();
+      let total = 0;
+
+      for (const product of cart) {
+        total += product.price * product.quantity;
+      }
+
+      discount = 0;
+      if (cartQuantity >= 3) {
+        discount = total * 0.20; 
+      }
+      toBePaid = total - discount;
+
+      const totalDiv = document.getElementById("totalCartValue");
+      const discountDiv = document.getElementById("discout");
+      const toBePaidDiv = document.getElementById("tobepaid");
+
+      if (totalDiv) totalDiv.textContent = `Cart value: €${total.toFixed(2)}`;
+      if (discountDiv) {
+        discountDiv.textContent =
+        discount > 0 ? `Discount: −€${discount.toFixed(2)}` : `Discount: No discount`;
+      }
+      if (toBePaidDiv) toBePaidDiv.textContent = `Total to be paid: €${toBePaid.toFixed(2)}`;
+
+      const checkoutSection = document.getElementById("checkout-section");
+      checkoutSection.classList.remove("d-none");
+      const confirmationText = document.getElementById("confirmation-text");
+      confirmationText.innerHTML = `Thank you! <b>${Math.floor(toBePaid * 0.4)}$</b> of your order has gone to charity. Your refurbished Macbook purchase helps support youth digital education.`
+      });
+});
 document.querySelectorAll(".show-cart-btn").forEach(btn => {
   btn.addEventListener(
       "click", () => {
         const cartSection = document.getElementById("cart-section");
+        const checkoutSection = document.getElementById("checkout-section");
         if (cart.length > 0) {
           cartSection.classList.remove("d-none");
+          checkoutSection.classList.add("d-none");
         } else {
+          const alert = document.getElementById('emptyCartAlert')
+          alert.innerHTML = "";
+          alert.innerHTML = `
+          <div class="position-absolute top-50 start-50 w-30 translate-middle alert alert-warning alert-dismissible fade show border border-3 border-warning " role="alert">
+          <strong>Your Cart is empty!</strong>
+          <p>Try adding products to your cart</p>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>`;
           cartSection.classList.add("d-none");
-          alert("Your cart is empty!");
         }
       });
 });
+
+(function () {
+  "use strict";
+
+  const checkoutSection = document.getElementById("checkout-section");
+  const confirmationSection = document.getElementById("confirmation-section");
+
+  if (!checkoutSection || !confirmationSection) return;
+
+  const form = checkoutSection.querySelector("form.needs-validation");
+  if (!form) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    form.classList.add("was-validated");
+
+    if (!form.checkValidity()) return;
+
+    checkoutSection.classList.add("d-none");
+    confirmationSection.classList.remove("d-none");
+  });
+})();
+
